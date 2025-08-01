@@ -1,51 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>My Project Showcase</title>
+  <meta charset="UTF-8">
+  <title>My Project Gallery</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <h1 class="main-heading">My Projects</h1>
 
-  <div class="project-grid">
-    <!-- Project 1 -->
-    <div class="project-card" onclick="openModal(
-      'Simple Calculator',
-      'projects/calculator/index.html',
-      'Basic calculator built using HTML, CSS, JS.',
-      'projects/calculator/code.txt'
-    )">
-      <img src="images/calc-thumbnail.jpg" alt="Calculator" class="project-thumbnail">
-      <h2>Simple Calculator</h2>
-    </div>
+  <h1>🌐 My Website Projects</h1>
 
-    <!-- Project 2 -->
-    <div class="project-card" onclick="openModal(
-      'To-Do App',
-      'projects/todo-app/index.html',
-      'A simple to-do list app with add/delete functionality.',
-      'projects/todo-app/code.txt'
-    )">
-      <img src="images/todo-thumbnail.jpg" alt="To-Do App" class="project-thumbnail">
-      <h2>To-Do App</h2>
-    </div>
-  </div>
+  <div class="grid">
 
-  <!-- Modal -->
-  <div id="modal" class="modal hidden">
-    <div class="modal-content">
-      <button onclick="closeModal()" class="close-btn">✖</button>
-      <h2 id="modalTitle"></h2>
-      <div class="preview-box">
-        <iframe id="projectFrame" frameborder="0"></iframe>
+    <!-- 🧮 Calculator Project -->
+    <div class="project">
+      <iframe src="projects/Calculator/index.html"></iframe>
+      <div class="project-content">
+        <h2>Simple Calculator</h2>
+        <a href="projects/Calculator/code.txt" download>Download Code</a>
       </div>
-      <p id="projectDesc"></p>
-      <a id="downloadBtn" href="#" download class="download-btn">⬇️ Download Code (.txt)</a>
     </div>
+
+    <!-- ⚡️ Add More Projects Below -->
+    <!--
+    <div class="project">
+      <iframe src="projects/AnotherProject/index.html"></iframe>
+      <div class="project-content">
+        <h2>Project Name</h2>
+        <a href="projects/AnotherProject/code.txt" download>Download Code</a>
+      </div>
+    </div>
+    -->
+
   </div>
 
-  <script src="script.js"></script>
 </body>
 </html>
