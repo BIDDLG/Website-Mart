@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>iPopcorn Projects</title>
+  <title>Techno Krrish Projects</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     * {
@@ -54,12 +54,21 @@
       font-size: 16px;
     }
     .card a {
-      background: linear-gradient(to right, #ff416c, #ffae00);
-      padding: 8px 15px;
-      color: white;
+      display: flex;
+      align-items: center;
+      padding: 6px;
+      border: none;
+      background: none;
       text-decoration: none;
-      border-radius: 8px;
-      font-weight: bold;
+    }
+    .card svg {
+      width: 24px;
+      height: 24px;
+      fill: #ff599c;
+      transition: transform 0.2s ease;
+    }
+    .card a:hover svg {
+      transform: scale(1.2);
     }
     .fab {
       position: fixed;
@@ -113,11 +122,15 @@
           const card = document.createElement('div');
           card.className = 'card';
 
-          const title = file.charAt(0).toUpperCase() + file.slice(1) + ' (2025)';
+          const title = file.charAt(0).toUpperCase() + file.slice(1);
 
           card.innerHTML = `
             <span>${title}</span>
-            <a href="projects/${file}.txt" download>⬇️</a>
+            <a href="projects/${file}.txt" download title="Download">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M5 20h14v-2H5v2zm7-18l-5.5 5.5h4v6h3v-6h4L12 2z"/>
+              </svg>
+            </a>
           `;
 
           resultBox.appendChild(card);
