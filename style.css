@@ -1,67 +1,94 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
 body {
+  margin: 0;
   font-family: 'Segoe UI', sans-serif;
-  background-color: #f0f2f5;
+  background-color: #f7f5fb;
 }
 
 header {
-  background-color: #1f1f1f;
-  color: white;
-  padding: 20px;
+  background: linear-gradient(90deg, #ff5f6d, #ffc371);
+  padding: 30px 20px 20px 20px;
   text-align: center;
-  font-size: 1.5rem;
-  font-weight: bold;
+  color: white;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.search-box {
-  padding: 15px;
-  background-color: white;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+header h1 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 600;
 }
 
-.search-box input {
+.search-container {
+  margin: 20px;
+}
+
+.search-container input {
   width: 100%;
-  padding: 12px 16px;
+  padding: 14px 18px;
   font-size: 16px;
-  border-radius: 10px;
-  border: 1px solid #ccc;
+  border: 2px solid #ff5f6d;
+  border-radius: 14px;
+  outline: none;
+  background-color: white;
+  color: #333;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
-.project-list {
-  padding: 15px;
+#projects {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  padding: 20px;
 }
 
-.project-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 14px 20px;
-  margin-bottom: 10px;
-  background-color: #fff;
-  border-radius: 12px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+.card {
+  background-color: white;
+  padding: 16px;
+  border-radius: 14px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  text-align: center;
 }
 
-.project-name {
-  font-weight: bold;
-  font-size: 16px;
+.card h3 {
+  margin: 0 0 8px;
+  font-size: 18px;
   color: #333;
 }
 
-.download-btn {
-  background-color: #007bff;
-  color: white;
-  padding: 8px 14px;
-  border-radius: 6px;
-  text-decoration: none;
+.card p {
+  margin: 0 0 12px;
   font-size: 14px;
+  color: #666;
 }
 
-.download-btn:hover {
-  background-color: #0056b3;
+.card a {
+  text-decoration: none;
+  color: white;
+  background: linear-gradient(90deg, #ff5f6d, #ffc371);
+  padding: 10px 16px;
+  border-radius: 8px;
+  display: inline-block;
+  font-weight: 500;
+}
+
+.fab {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ff5f6d, #ffc371);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  z-index: 10;
+}
+
+.fab i {
+  color: white;
+  font-size: 24px;
 }
