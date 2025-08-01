@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #6a11cb, #2575fc);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+  background: rgba(255, 255, 255, 0.12);
+  padding: 25px 20px;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  width: 96%;
+  max-width: 90%;
+  color: #fff;
+  z-index: 1;
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #ffdf70;
+      font-size: 24px;
+    }
+
+    label {
+      font-weight: bold;
+      display: block;
+      margin: 12px 0 4px; /* tighter spacing */
+      font-size: 15px;
+      margin-top: 15px;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: bold;
+      margin-bottom: -1px;
+    }
+    input:focus {
+      outline: none;
+      box-shadow: none;
+    }
+
+    .currency-input {
+      display: flex;
+      align-items: center;
+      background-color: #fff;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+
+    .currency-input span {
+      padding: 0 12px;
+      font-size: 16px;
+      font-weight: bold;
+      background-color: #fff;
+      margin-right: -12px;
+      color: #000;
+      border-radius: 8px 0 0 8px;
+    }
+
+    .currency-input input {
+      border-radius: 0 8px 8px 0;
+      padding: 12px 1px;
+      font-size: 16px;
+      font-weight: bold;
+      border: none;
+      flex-grow: 1;
+      margin: 0;
+    }
+
+    button {
+      width: 100%;
+      background: #ffdf70;
+      color: #000;
+      padding: 12px;
+      border: none;
+      font-weight: bold;
+      font-size: 16px;
+      border-radius: 8px;
+      margin-top: 15px;
+      cursor: none;
+      transition: all 0.3s ease-in-out;
+    }
+
+    button:hover {
+      background: #FFBF00;
+      transform: scale(1.05);
+    }
+
+    #result {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 20px;
+      color: white;
+      word-wrap: break-word;
+    }
+
+    .dropdown-container {
+      position: relative;
+      margin-bottom: 10px;
+      margin-top: -15px; /* reduce space from label */
+    }
+
+    .dropdown-toggle {
+      width: 100%;
+      background-color: #fff;
+      color: #000;
+      padding: 12px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: none;
+      text-align: left;
+    }
+
+    .dropdown-options {
+      position: relative;
+      width: 100%;
+      max-height: 200px;
+      overflow-y: auto;
+      background-color: #fff;
+      color: #000;
+      border-radius: 0 0 8px 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      z-index: 999;
+      display: none;
+      margin-top: 5px;
+    }
+
+    .dropdown-options div {
+      padding: 10px;
+      cursor: none;
+    }
+
+    .dropdown-options div:hover {
+      background-color: #eee;
+    }
+
+    @media (max-width: 480px) {
+      h2 {
+        font-size: 20px;
+      }
+
+      input, button, select {
+        font-size: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>💰 CPM Calculator</h2>
+
+  <label>Clicks (Per Payout)</label>
+  <input type="number" id="baseClicks" placeholder="1000">
+
+  <label>Select Currency</label>
+  <div class="dropdown-container">
+    <button class="dropdown-toggle" onclick="toggleDropdown()" id="currencyLabel">$ Dollar</button>
+    <div class="dropdown-options" id="dropdownOptions">
+      <div onclick="selectCurrency('$ Dollar', '$')">$ Dollar</div>
+      <div onclick="selectCurrency('₹ Rupees', '₹')">₹ Rupees</div>
+      <div onclick="selectCurrency('€ Euro', '€')">€ Euro</div>
+      <div onclick="selectCurrency('£ Pound', '£')">£ Pound</div>
+      <div onclick="selectCurrency('¥ Yen', '¥')">¥ Yen</div>
+      <div onclick="selectCurrency('₽ Ruble', '₽')">₽ Ruble</div>
+      <div onclick="selectCurrency('₿ Bitcoin', '₿')">₿ Bitcoin</div>
+      <div onclick="selectCurrency('₩ Won', '₩')">₩ Won</div>
+      <div onclick="selectCurrency('₪ Shekel', '₪')">₪ Shekel</div>
+      <div onclick="selectCurrency('₦ Naira', '₦')">₦ Naira</div>
+    </div>
+  </div>
+  <input type="hidden" id="currency" value="$">
+
+  <label>CPM Rate (Amount)</label>
+  <div class="currency-input">
+    <span id="currencyIcon">$</span>
+    <input type="number" id="baseEarning" placeholder="5">
+  </div>
+
+  <label>Total Clicks</label>
+  <input type="number" id="yourClicks" placeholder="10">
+
+  <button onclick="calculateEarnings()">🟰 Calculate</button>
+
+  <div id="result"></div>
+</div>
+
+<script>
+  let dropdownVisible = false;
+
+  function toggleDropdown() {
+    const options = document.getElementById('dropdownOptions');
+    dropdownVisible = !dropdownVisible;
+    options.style.display = dropdownVisible ? 'block' : 'none';
+  }
+
+  function selectCurrency(label, symbol) {
+    document.getElementById('currencyLabel').innerText = label;
+    document.getElementById('currencyIcon').innerText = symbol;
+    document.getElementById('currency').value = symbol;
+    toggleDropdown();
+  }
+
+  function calculateEarnings() {
+    const baseClicks = parseFloat(document.getElementById('baseClicks').value);
+    const baseEarning = parseFloat(document.getElementById('baseEarning').value);
+    const yourClicks = parseFloat(document.getElementById('yourClicks').value);
+    const currency = document.getElementById('currency').value;
+
+    if (!baseClicks || !baseEarning || !yourClicks) {
+      document.getElementById('result').innerText = "⚠️ Please fill in all fields.";
+      return;
+    }
+
+    const earningPerClick = baseEarning / baseClicks;
+    const yourEarning = earningPerClick * yourClicks;
+
+    document.getElementById('result').innerHTML = `🔸 Your <b>${yourClicks}</b> clicks will earn <b>${currency}${yourEarning.toFixed(2)}</b> 🎉`;
+  }
+
+  // Close dropdown on outside click
+  window.addEventListener('click', function(e) {
+    if (!e.target.closest('.dropdown-container')) {
+      document.getElementById('dropdownOptions').style.display = 'none';
+      dropdownVisible = false;
+    }
+  });
+</script>
+
+</body>
+</html>
