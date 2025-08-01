@@ -53,6 +53,7 @@
       border: none;
       background: none;
       text-decoration: none;
+      cursor: none;
     }
     .card svg {
       width: 24px;
@@ -64,6 +65,7 @@
     .card a:hover svg {
       transform: scale(1.2);
       fill: #004d40;
+      cursor: none;
     }
     .fab {
       position: fixed;
