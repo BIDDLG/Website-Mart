@@ -1,0 +1,89 @@
+ * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #f6f5fb;
+    }
+    header {
+      background: linear-gradient(to right, #00695c, #004d40);
+      padding: 20px;
+      color: white;
+      text-align: center;
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+    .search-box {
+      margin: 15px;
+      display: flex;
+      justify-content: center;
+    }
+    .search-box input {
+      width: 98%;
+      padding: 12px;
+      border: 2px solid #00695c;
+      border-radius: 10px;
+      font-size: 16px;
+      outline: none;
+    }
+    .results {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .card {
+      background: white;
+      padding: 15px 20px;
+      margin: 10px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      width: 90%;
+      max-width: 500px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 16px;
+      font-weight: bold;
+    }
+    .card a {
+      display: flex;
+      align-items: center;
+      padding: 6px;
+      border: none;
+      background: none;
+      text-decoration: none;
+    }
+    .card svg {
+      width: 24px;
+      height: 24px;
+      fill: #00695c;
+      transition: transform 0.2s ease;
+      cursor: none;
+    }
+    .card a:hover svg {
+      transform: scale(1.2);
+      fill: #004d40;
+    }
+    .fab {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: linear-gradient(to right, #00695c, #004d40);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+    .fab img {
+      width: 24px;
+      height: 24px;
+    }
+    a {
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none; /* Block iOS long press menu */
+    }
