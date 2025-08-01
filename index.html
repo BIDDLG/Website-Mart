@@ -88,6 +88,11 @@
       width: 24px;
       height: 24px;
     }
+    a {
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none; /* Block iOS long press menu */
+    }
   </style>
 </head>
 <body>
@@ -142,5 +147,29 @@
     });
   </script>
 
+  <script>
+  // Block right-click
+  document.addEventListener('contextmenu', event => event.preventDefault());
+
+  // Block long-press on links (mostly on mobile)
+  const links = document.querySelectorAll('a');
+
+  links.forEach(link => {
+    // Disable dragging
+    link.setAttribute('draggable', 'false');
+
+    // Disable long press on mobile
+    link.addEventListener('touchstart', e => {
+      e.preventDefault();
+      // Trigger click manually if needed
+      link.click();
+    });
+
+    // Optional: Block text selection
+    link.style.userSelect = 'none';
+    link.style.webkitUserSelect = 'none';
+  });
+  </script>
+  
 </body>
 </html>
