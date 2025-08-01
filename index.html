@@ -127,9 +127,11 @@
           card.innerHTML = `
             <span>${title}</span>
             <a href="projects/${file}.txt" download title="Download">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                <path d="M5 20h14v-2H5v2zm7-18l-5.5 5.5h4v6h3v-6h4L12 2z"/>
-              </svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-download">
+  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+  <polyline points="7 10 12 15 17 10"/>
+  <line x1="12" x2="12" y1="15" y2="3"/>
+</svg>
             </a>
           `;
 
