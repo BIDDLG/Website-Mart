@@ -1,20 +1,127 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>📁 My Download Projects</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>📂 Code Projects</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f5f5f5;
+    }header {
+  background: linear-gradient(90deg, #ff5f6d, #ffc371);
+  padding: 24px;
+  text-align: center;
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+.search-box {
+  margin: 20px auto;
+  max-width: 90%;
+  display: flex;
+  justify-content: center;
+}
+
+.search-box input {
+  width: 100%;
+  max-width: 500px;
+  padding: 12px 20px;
+  border-radius: 12px;
+  border: 2px solid #ff5f6d;
+  outline: none;
+  font-size: 16px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+  padding: 20px;
+  max-width: 1000px;
+  margin: auto;
+}
+
+.card {
+  background: white;
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card h3 {
+  margin: 0 0 10px;
+  color: #333;
+}
+
+.card p {
+  color: #777;
+  margin-bottom: 12px;
+}
+
+.card a {
+  display: inline-block;
+  text-decoration: none;
+  color: white;
+  background: #ff5f6d;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-weight: bold;
+}
+
+.card a:hover {
+  background: #e14b5c;
+}
+
+  </style>
 </head>
-<body>
+<body>  <header>📁 My Code Projects</header>  <div class="search-box">
+    <input type="text" id="search" placeholder="Search projects..." oninput="filterProjects()" />
+  </div>  <div class="grid" id="projects">
+    <!-- Project cards will be inserted here -->
+  </div>  <script>
+    let allProjects = [];
 
-  <header>📦 My GitHub Projects</header>
+    fetch('projects/index.txt')
+      .then(res => res.text())
+      .then(data => {
+        const files = data.trim().split('\n');
+        allProjects = files;
+        renderProjects(files);
+      })
+      .catch(err => {
+        document.getElementById('projects').innerHTML = '<p>Error loading projects.</p>';
+        console.error('Error:', err);
+      });
 
-<div class="search-box">
-  <input type="text" id="search" placeholder="Search projects..." />
-</div>
+    function renderProjects(files) {
+      const container = document.getElementById('projects');
+      container.innerHTML = '';
+      files.forEach(file => {
+        const name = file.replace('.txt', '');
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.innerHTML = `
+          <h3>${name}</h3>
+          <p>${name} project download</p>
+          <a href="projects/${file}" download>⬇️ Download</a>
+        `;
+        container.appendChild(card);
+      });
+    }
 
-<div id="projects" class="project-list"></div>
-
-  <script src="script.js"></script>
-</body>
+    function filterProjects() {
+      const query = document.getElementById('search').value.toLowerCase();
+      const filtered = allProjects.filter(file => file.toLowerCase().includes(query));
+      renderProjects(filtered);
+    }
+  </script></body>
 </html>
