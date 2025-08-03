@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Kirana Calculator</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: #141414;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            flex-direction: column;
+        }
+
+        .container {
+            background: linear-gradient(to right, #1E1E1E, #141414);
+            border-radius: 15px;
+            padding: 20px;
+            max-width: 800px;
+            box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.7);
+            width: 80%;
+            margin-top: 100px;
+            margin-bottom: 30px;
+        }
+
+        #title {
+          text-align: center;
+          font-size: 25px;
+          font-weight: bold;
+          color: white;
+          margin-bottom: 50px;
+          text-align: center;
+        }
+
+        .row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            align-items: center;
+            /* Vertically align items in the row */
+        }
+
+        label {
+            font-weight: bold;
+            margin-bottom: 6px;
+            display: block;
+        }
+
+        #totalPrice {
+            margin-bottom: 15px;
+            /* Adjust this value as needed */
+        }
+
+        input {
+            padding: 12px;
+            border-radius: 10px;
+            border: none;
+            font-size: 16px;
+            font-weight: bold;
+            outline: none;
+            background: #2E2E2E;
+            color: white;
+            width: 100%;
+            /* Take up available space */
+            box-sizing: border-box;
+            /* Include padding in width */
+            box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.7);
+        }
+
+        /* Custom Dropdown Styles */
+        .custom-dropdown {
+            position: relative;
+            width: 100%;
+            /* Take up available space */
+            border-radius: 10px;
+            background-color: #2E2E2E;
+            text-align: center;
+            color: white;
+            user-select: none;
+            box-sizing: border-box;
+            /* Include padding in width */
+            box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.7);
+        }
+
+        .dropdown-selected {
+            padding: 12px 10px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box;
+            width: 100%;
+            /* Include padding in width */
+        }
+
+        /* Hide the arrow */
+        .dropdown-arrow {
+            display: none;
+        }
+
+        .dropdown-options {
+            position: absolute;
+            top: calc(100% + 5px); /* Add 5px space */
+            left: 0;
+            width: 100%;
+            background-color: #2E2E2E;
+            color: white;
+            border-radius: 10px;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: none;
+            z-index: 1;
+            box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.7);
+            box-sizing: border-box;
+            /* Include padding in width */
+            text-align: center;
+        }
+
+        .dropdown-options li {
+            padding: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            transition: background-color 0.2s ease;
+            box-sizing: border-box;
+            /* Include padding in width */
+        }
+
+        .dropdown-options li:hover {
+            background-color: #434343;
+        }
+
+        .dropdown-options.show {
+            display: block;
+        }
+
+        button {
+           width: 100%;
+           padding: 12px;
+           background: #2E2E2E;
+           border: none;
+           font-weight: bold;
+           font-size: 16px;
+           border-radius: 8px;
+           margin-top: 10px;
+           color: white;
+           transition: 0.1s ease;
+           box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.7);
+        }
+
+        button:hover {
+            background: #434343;
+       }
+
+        button:active {
+            transform: scale(0.93);
+       }
+
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+            text-align: center;
+            display: none;
+        }
+
+        .unit-dropdown {
+            /* New class to target the entire dropdown */
+            width: 30%;
+            /* Maintain the existing width */
+            display: inline;
+            /* show back the dropdown */
+        }
+
+        .lang-toggle {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .lang-toggle button {
+            width: 100%;
+            padding: 12px;
+            background: #2E2E2E;
+            border: none;
+            font-weight: bold;
+            font-size: 16px;
+            border-radius: 8px;
+            margin-top: 10px;
+            color: white;
+            transition: 0.1s ease;
+        }
+
+        .lang-toggle button:hover {
+           background: #434343;
+        }
+
+        .lang-toggle button:active {
+           transform: scale(0.93);
+        }
+   .row > input,
+   .row > .custom-dropdown {
+  height: 40px;
+  width: 100%;
+  max-width: 135px;
+  box-sizing: border-box;
+}
+
+/* Make both input and dropdown same size inside a flex row */
+   .row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+   .custom-dropdown .dropdown-selected {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+footer {
+  text-align: center;
+  padding: 12px 0;
+  background-color: transparent; /* Or dark color if you want */
+}
+
+.footer-link {
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 400;
+  transition: opacity 0.2s ease;
+  -webkit-tap-highlight-color: transparent; /* 🟢 Removes blue flash on mobile */
+}
+
+.footer-link:hover {
+  opacity: 0.7;
+      }
+
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h2 id="title">Kirana Calculator</h2>
+
+        <label id="label1">Total Price (₹):</label>
+        <input type="number" id="totalPrice" placeholder="E.g 700" />
+
+        <label id="label2">Total Quantity:</label>
+        <div class="row">
+            <input type="number" id="totalQty" placeholder="E.g 5" style="width: 50%;" />
+            <div class="custom-dropdown" style="width: 50%;">
+                <div class="dropdown-selected" id="totalUnitSelected">Kilogram</div>
+                <ul class="dropdown-options" id="totalUnitOptions">
+                    <li data-value="kg" onclick="selectOption('kg', 'totalUnit')">Kilogram</li>
+                    <li data-value="g" onclick="selectOption('g', 'totalUnit')">Gram</li>
+                    <li data-value="mg" onclick="selectOption('mg', 'totalUnit')">Milligram</li>
+                    <li data-value="l" onclick="selectOption('l', 'totalUnit')">Liter</li>
+                    <li data-value="ml" onclick="selectOption('ml', 'totalUnit')">Milliliter</li>
+                </ul>
+            </div>
+            <input type="hidden" id="totalUnit" value="kg">
+        </div>
+
+        <label id="label3">Your Calculation:</label>
+        <div class="row">
+            <div class="custom-dropdown" style="width: 30%;">
+                <div class="dropdown-selected" id="calcTypeSelected">Quantity</div>
+                <ul class="dropdown-options" id="calcTypeOptions">
+                    <li data-value="quantity" onclick="selectCalcType('quantity')">Quantity</li>
+                    <li data-value="price" onclick="selectCalcType('price')">Price</li>
+                </ul>
+            </div>
+            <input type="number" id="yourValue" placeholder="E.g 250" style="width: 30%;" />
+            <div id="yourUnitContainer" class="unit-dropdown" style="width: 30%;">
+                <div class="custom-dropdown" style="width: 100%;">
+                    <div class="dropdown-selected" id="yourUnitSelected">Gram</div>
+                    <ul class="dropdown-options" id="yourUnitOptions">
+                        <li data-value="kg" onclick="selectOption('kg', 'yourUnit')" class="massUnit">Kilogram</li>
+                        <li data-value="g" onclick="selectOption('g', 'yourUnit')" class="massUnit">Gram</li>
+                        <li data-value="mg" onclick="selectOption('mg', 'yourUnit')" class="massUnit">Milligram</li>
+                        <li data-value="l" onclick="selectOption('l', 'yourUnit')" class="volumeUnit">Liter</li>
+                        <li data-value="ml" onclick="selectOption('ml', 'yourUnit')" class="volumeUnit">Milliliter</li>
+                    </ul>
+                </div>
+            </div>
+            <input type="hidden" id="yourUnit" value="g">
+            <input type="hidden" id="calcType" value="quantity">
+        </div>
+
+        <button onclick="calculate()" id="calculateBtn">Calculate</button>
+
+        <div id="result"></div>
+
+        <div class="lang-toggle">
+            <button onclick="setLang('en')">English</button>
+            <button onclick="setLang('hi')">हिन्दी</button>
+        </div>
+    </div>
+
+   <script>
+  const lang = {
+    en: {
+      title: "Kirana Calculator",
+      label1: "Total Price (₹)",
+      label2: "Total Quantity",
+      label3: "Select Quantity / Price",
+      calculateBtn: "🟰 Calculate",
+      Kilogram: "Kilogram",
+      Gram: "Gram",
+      Milligram: "Milligram",
+      Liter: "Liter",
+      Milliliter: "Milliliter",
+      totalUnitInitial: "Kilogram",
+      yourUnitInitial: "Kilogram",
+      quantity: "Quantity",
+      price: "Price",
+      resultQuantity: (price) => `You need to pay ₹${price} for your quantity`,
+      resultPrice: (quantity) => `You can buy ${quantity} with your price`,
+    },
+    hi: {
+      title: "किराना कैलकुलेटर",
+      label1: "कुल कीमत (₹)",
+      label2: "कुल मात्रा",
+      label3: "आपकी गणना",
+      calculateBtn: "गणना करें",
+      Kilogram: "किलोग्राम",
+      Gram: "ग्राम",
+      Milligram: "मिलीग्राम",
+      Liter: "लीटर",
+      Milliliter: "मिलीलीटर",
+      totalUnitInitial: "किलोग्राम",
+      yourUnitInitial: "किलोग्राम",
+      quantity: "मात्रा",
+      price: "कीमत",
+      resultQuantity: (price) => `आपकी मात्रा के लिए ₹${price} देने होंगे`,
+      resultPrice: (quantity) => `आप अपनी कीमत से ${quantity} खरीद सकते हैं`,
+    },
+  };
+
+  let currentLang = "en";
+
+  function setLang(l) {
+    currentLang = l;
+    document.getElementById("title").innerText = lang[l].title;
+    document.getElementById("label1").innerText = lang[l].label1;
+    document.getElementById("label2").innerText = lang[l].label2;
+    document.getElementById("label3").innerText = lang[l].label3;
+    document.getElementById("calculateBtn").innerText = lang[l].calculateBtn;
+    document.getElementById("result").style.display = "none";
+
+    document.getElementById("totalUnitSelected").innerText = lang[l].totalUnitInitial;
+    document.getElementById("yourUnitSelected").innerText = lang[l].yourUnitInitial;
+    document.getElementById("calcTypeSelected").innerText = lang[l].quantity;
+
+    document.querySelectorAll('#totalUnitOptions li[data-value="kg"]')[0].innerText = lang[l].Kilogram;
+    document.querySelectorAll('#yourUnitOptions li[data-value="kg"]')[0].innerText = lang[l].Kilogram;
+    document.querySelectorAll('#totalUnitOptions li[data-value="g"]')[0].innerText = lang[l].Gram;
+    document.querySelectorAll('#yourUnitOptions li[data-value="g"]')[0].innerText = lang[l].Gram;
+    document.querySelectorAll('#totalUnitOptions li[data-value="mg"]')[0].innerText = lang[l].Milligram;
+    document.querySelectorAll('#yourUnitOptions li[data-value="mg"]')[0].innerText = lang[l].Milligram;
+    document.querySelectorAll('#totalUnitOptions li[data-value="l"]')[0].innerText = lang[l].Liter;
+    document.querySelectorAll('#yourUnitOptions li[data-value="l"]')[0].innerText = lang[l].Liter;
+    document.querySelectorAll('#totalUnitOptions li[data-value="ml"]')[0].innerText = lang[l].Milliliter;
+    document.querySelectorAll('#yourUnitOptions li[data-value="ml"]')[0].innerText = lang[l].Milliliter;
+
+    document.querySelectorAll('#calcTypeOptions li[data-value="quantity"]')[0].innerText = lang[l].quantity;
+    document.querySelectorAll('#calcTypeOptions li[data-value="price"]')[0].innerText = lang[l].price;
+  }
+
+  function toggleDropdown(dropdownId) {
+    const dropdown = document.getElementById(dropdownId + "Options");
+    dropdown.classList.toggle("show");
+  }
+
+  function selectOption(value, dropdownId) {
+    let fullName;
+    switch (value) {
+      case "kg": fullName = lang[currentLang].Kilogram; break;
+      case "g": fullName = lang[currentLang].Gram; break;
+      case "mg": fullName = lang[currentLang].Milligram; break;
+      case "l": fullName = lang[currentLang].Liter; break;
+      case "ml": fullName = lang[currentLang].Milliliter; break;
+      default: fullName = value;
+    }
+
+    document.getElementById(dropdownId + "Selected").innerText = fullName;
+    document.getElementById(dropdownId).value = value;
+    toggleDropdown(dropdownId);
+  }
+
+  function selectCalcType(value) {
+    document.getElementById("calcTypeSelected").innerText = lang[currentLang][value];
+    document.getElementById("calcType").value = value;
+    toggleDropdown("calcType");
+
+    const unitDropdown = document.getElementById("yourUnitContainer");
+
+    if (value === "price") {
+      unitDropdown.style.display = "none";
+      document.getElementById("yourUnit").value = "g";
+      document.getElementById("yourUnitSelected").innerText = lang[currentLang]["Gram"];
+    } else {
+      unitDropdown.style.display = "inline";
+      document.getElementById("yourUnit").value = "kg";
+      document.getElementById("yourUnitSelected").innerText = lang[currentLang]["Kilogram"];
+    }
+  }
+
+  document.querySelectorAll('.dropdown-selected').forEach(item => {
+    item.addEventListener('click', () => {
+      toggleDropdown(item.id.replace('Selected', ''));
+    });
+  });
+
+  window.addEventListener('click', function(e) {
+    if (!e.target.closest('.custom-dropdown')) {
+      document.querySelectorAll('.dropdown-options.show').forEach(dropdown => {
+        dropdown.classList.remove('show');
+      });
+    }
+  });
+
+  function convertToGramsOrMilliliters(value, unit) {
+    switch (unit) {
+      case "kg": return value * 1000;
+      case "g": return value;
+      case "mg": return value / 1000;
+      case "l": return value * 1000;
+      case "ml": return value;
+      default: return 0;
+    }
+  }
+
+  function formatQuantity(quantity) {
+    if (quantity >= 1000) {
+      return `${(quantity / 1000).toFixed(2)} Kilogram`;
+    } else {
+      return `${quantity.toFixed(2)} Gram`;
+    }
+  }
+
+  function calculate() {
+    const price = parseFloat(document.getElementById("totalPrice").value);
+    const totalQty = parseFloat(document.getElementById("totalQty").value);
+    const totalUnit = document.getElementById("totalUnit").value;
+    const calcType = document.getElementById("calcType").value;
+    const resultBox = document.getElementById("result");
+
+    if (isNaN(price) || isNaN(totalQty)) {
+      alert("Enter valid numbers for Total Price and Total Quantity");
+      return;
+    }
+
+    const totalInBaseUnits = convertToGramsOrMilliliters(totalQty, totalUnit);
+    const yourValue = parseFloat(document.getElementById("yourValue").value);
+    if (isNaN(yourValue)) {
+      alert("Enter valid number for Your Value");
+      return;
+    }
+
+    if (calcType === "quantity") {
+      const yourUnit = document.getElementById("yourUnit").value;
+      const yourInBaseUnits = convertToGramsOrMilliliters(yourValue, yourUnit);
+      const priceForYourQty = (yourInBaseUnits / totalInBaseUnits) * price;
+      resultBox.innerText = lang[currentLang].resultQuantity(priceForYourQty.toFixed(2));
+    } else if (calcType === "price") {
+      const quantity = (yourValue * totalInBaseUnits) / price;
+      resultBox.innerText = lang[currentLang].resultPrice(formatQuantity(quantity));
+    }
+
+    resultBox.style.display = "block";
+  }
+
+  setLang(currentLang);
+</script>
+
+  <footer>
+  <a href="#" target="_blank" class="footer-link">
+    © Kirana Calculator
+  </a>
+  </footer>
+
+</body>
+
+</html>
